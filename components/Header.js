@@ -3,15 +3,21 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  // petite fonction utilitaire pour appliquer la classe active
+  const linkClass = (href) =>
+    `nav__link ${pathname === href ? "active-link" : ""}`;
 
   return (
     <header className="header" id="header">
       <nav className="nav container">
-        <Link href="/" className="nav__logo">
-          D&amp;D <h4>Prime</h4>
+        <Link href="/" className="nav__logo" onClick={() => setOpen(false)}>
+          D&amp;D <h5>Prime</h5>
         </Link>
 
         <div className={`nav__menu ${open ? "show-menu" : ""}`} id="nav-menu">
@@ -19,7 +25,7 @@ export default function Header() {
             <li>
               <Link
                 href="/#home"
-                className="nav__link"
+                className={linkClass("/")}
                 onClick={() => setOpen(false)}
               >
                 Accueil
@@ -29,7 +35,7 @@ export default function Header() {
             <li>
               <Link
                 href="/decoration-interieur"
-                className="nav__link"
+                className={linkClass("/decoration-interieur")}
                 onClick={() => setOpen(false)}
               >
                 Décoration d&apos;intérieur
@@ -39,7 +45,7 @@ export default function Header() {
             <li>
               <Link
                 href="/decoration-evenementielle"
-                className="nav__link"
+                className={linkClass("/decoration-evenementielle")}
                 onClick={() => setOpen(false)}
               >
                 Décoration événementielle
@@ -49,7 +55,7 @@ export default function Header() {
             <li>
               <Link
                 href="/wedding-planner"
-                className="nav__link"
+                className={linkClass("/wedding-planner")}
                 onClick={() => setOpen(false)}
               >
                 Wedding planner
@@ -59,7 +65,7 @@ export default function Header() {
             <li>
               <Link
                 href="/realisations"
-                className="nav__link"
+                className={linkClass("/realisations")}
                 onClick={() => setOpen(false)}
               >
                 Réalisations
@@ -69,7 +75,7 @@ export default function Header() {
             <li>
               <Link
                 href="/devis"
-                className="nav__link"
+                className={linkClass("/devis")}
                 onClick={() => setOpen(false)}
               >
                 Devis
