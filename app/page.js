@@ -6,6 +6,30 @@ export default function HomePage() {
     <>
       {/* SECTION ACCUEIL */}
       <section className="home section" id="home">
+        {/* Fond avec images qui se succèdent */}
+        <div className="home__bg-fade">
+          <img
+            src="/assets/img/about/profil.jpg"
+            alt="Décor 1"
+            className="home__bg-image home__bg-image--1"
+          />
+          <img
+            src="/assets/img/about/profil1.jpg"
+            alt="Décor 2"
+            className="home__bg-image home__bg-image--2"
+          />
+          <img
+            src="/assets/img/about/profil2.jpg"
+            alt="Décor 3"
+            className="home__bg-image home__bg-image--3"
+          />
+          <img
+            src="/assets/img/about/profil3.jpg"
+            alt="Décor 4"
+            className="home__bg-image home__bg-image--4"
+          />
+        </div>
+
         <div className="container home__container">
           <div className="home__content">
             <h1>D&amp;D Prime</h1>
@@ -14,13 +38,22 @@ export default function HomePage() {
               pour créer des moments inoubliables.
             </p>
             <div className="home__buttons">
-              <Link href="/decoration-interieur" className="home__btn home__btn--outline">
+              <Link
+                href="/decoration-interieur"
+                className="home__btn home__btn--outline"
+              >
                 Décoration d&apos;intérieur
               </Link>
-              <Link href="/decoration-evenementielle" className="home__btn home__btn--outline">
+              <Link
+                href="/decoration-evenementielle"
+                className="home__btn home__btn--outline"
+              >
                 Décoration événementielle
               </Link>
-              <Link href="/wedding-planner" className="home__btn home__btn--outline">
+              <Link
+                href="/wedding-planner"
+                className="home__btn home__btn--outline"
+              >
                 Wedding &amp; planner
               </Link>
             </div>
@@ -32,11 +65,30 @@ export default function HomePage() {
       <section className="about section" id="about">
         <div className="container about__container">
           <div className="about__image-wrapper">
-            <img
-              src="/assets/img/about/profil.jpg"
-              alt="Décoratrice"
-              className="about__image"
-            />
+            <div className="about__slider">
+              <div className="about__slide-track">
+                <img
+                  src="/assets/img/about/profil.jpg"
+                  alt="Décoratrice 1"
+                  className="about__image"
+                />
+                <img
+                  src="/assets/img/about/profil1.jpg"
+                  alt="Décoratrice 2"
+                  className="about__image"
+                />
+                <img
+                  src="/assets/img/about/profil2.jpg"
+                  alt="Décoratrice 3"
+                  className="about__image"
+                />
+                <img
+                  src="/assets/img/about/profil3.jpg"
+                  alt="Décoratrice 4"
+                  className="about__image"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="about__content">
@@ -48,16 +100,20 @@ export default function HomePage() {
             </span>
 
             <p className="about__description">
-              D&amp;D Prime est née de la passion pour la décoration élégante
-              et les événements inoubliables. Nous transformons vos idées en
+              D&amp;D Prime est née de la passion pour la décoration élégante et
+              les événements inoubliables. Nous transformons vos idées en
               réalité, que ce soit pour sublimer un intérieur ou organiser le
               plus beau jour de votre vie.
             </p>
 
             <div className="about__highlights">
               <div className="about__highlight">🎉 +50 événements réalisés</div>
-              <div className="about__highlight">🏠 Décoration intérieure personnalisée</div>
-              <div className="about__highlight">✨ Créativité &amp; professionnalisme</div>
+              <div className="about__highlight">
+                🏠 Décoration intérieure personnalisée
+              </div>
+              <div className="about__highlight">
+                ✨ Créativité &amp; professionnalisme
+              </div>
             </div>
           </div>
         </div>

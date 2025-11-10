@@ -106,3 +106,65 @@
     max-width: 300px;
   }
 }
+
+/* ===== SLIDER "A PROPOS" ===== */
+
+.about__slider {
+  position: relative;
+  width: 100%;
+  max-width: 400px; 
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.about__slide-track {
+  display: flex;
+  width: calc(400px * 8); /* 4 images * 2 (dupliquées) */
+  animation: slideAbout 25s linear infinite;
+}
+
+.about__slider img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 1rem;
+  flex-shrink: 0;
+}
+
+/* Animation défilement fluide */
+@keyframes slideAbout {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-300px * 4)); /* défilement d'un cycle */
+  }
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .about__slider {
+    max-width: 300px;
+  }
+
+  .about__slider img {
+    width: 300px;
+    height: 300px;
+  }
+
+  .about__slide-track {
+    width: calc(300px * 8);
+    animation: slideAboutMobile 20s linear infinite;
+  }
+
+  @keyframes slideAboutMobile {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-220px * 4));
+    }
+  }
+}
+
