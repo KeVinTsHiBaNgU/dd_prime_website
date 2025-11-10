@@ -1,7 +1,20 @@
 // app/devis/page.js
 "use client";
 
+import { useState } from "react";
+
+const prestationsOptions = [
+  { value: "", label: "Sélectionnez une prestation" },
+  { value: "interieur", label: "Décoration d'intérieur" },
+  { value: "evenementielle", label: "Décoration événementielle" },
+  { value: "wedding", label: "Wedding planner" },
+  { value: "autre", label: "Autre / Sur-mesure" },
+];
+
 export default function DevisPage() {
+  const [prestation, setPrestation] = useState("");
+  const [openSelect, setOpenSelect] = useState(false);
+
   return (
     <section className="devis section" id="devis">
       <div className="container devis__container">
@@ -26,7 +39,13 @@ export default function DevisPage() {
         </div>
 
         <div className="devis__form-wrapper">
-          <form className="devis__form" onSubmit={(e) => e.preventDefault()}>
+          <form
+            className="devis__form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              // ici tu pourras ajouter l'envoi réel plus tard
+            }}
+          >
             {/* Email */}
             <div className="devis__field">
               <label htmlFor="email" className="devis__label">
@@ -41,20 +60,57 @@ export default function DevisPage() {
               />
             </div>
 
-            {/* Type de prestation */}
+            {/* Type de prestation - CUSTOM SELECT */}
             <div className="devis__field">
-              <label htmlFor="prestation" className="devis__label">
+              <label className="devis__label">
                 Type de prestation *
               </label>
-              <select id="prestation" className="devis__select" required>
-                <option value="">Sélectionnez une prestation</option>
-                <option value="interieur">Décoration d&apos;intérieur</option>
-                <option value="evenementielle">
-                  Décoration événementielle
-                </option>
-                <option value="wedding">Wedding planner</option>
-                <option value="autre">Autre / Sur-mesure</option>
-              </select>
+
+              <div
+                className={`custom-select ${openSelect ? "is-open" : ""}`}
+              >
+                <button
+                  type="button"
+                  className="custom-select__button"
+                  onClick={() => setOpenSelect((o) => !o)}
+                >
+                  <span>
+                    {
+                      prestationsOptions.find(
+                        (opt) => opt.value === prestation
+                      )?.label || "Sélectionnez une prestation"
+                    }
+                  </span>
+                  <i className="uil uil-angle-down"></i>
+                </button>
+
+                {openSelect && (
+                  <ul className="custom-select__list">
+                    {prestationsOptions.map((opt) => (
+                      <li
+                        key={opt.value || "default"}
+                        className={`custom-select__option ${
+                          opt.value === prestation ? "is-selected" : ""
+                        }`}
+                        onClick={() => {
+                          setPrestation(opt.value);
+                          setOpenSelect(false);
+                        }}
+                      >
+                        {opt.label}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* valeur réelle envoyée dans le formulaire */}
+                <input
+                  type="hidden"
+                  name="prestation"
+                  value={prestation}
+                  required
+                />
+              </div>
             </div>
 
             {/* Message */}
@@ -74,6 +130,14 @@ export default function DevisPage() {
               Envoyer ma demande
             </button>
           </form>
+
+          {/* Bouton d’appel direct */}
+          <div className="devis__call">
+            <a href="tel:+33612345678" className="devis__call-btn">
+              <i className="uil uil-phone"></i>
+              Appeler maintenant
+            </a>
+          </div>
 
           {/* Réseaux sociaux */}
           <div className="devis__socials">
