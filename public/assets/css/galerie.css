@@ -1,0 +1,121 @@
+:root {
+  --first-color: #d9a441;
+  --first-color-alt: #bf8a2d;
+  --body-color: #ffffff;
+  --title-color: #1e1e1e;
+  --text-color: #555;
+  --container-color: #f9f9f9;
+
+  --h2-font-size: 2rem;
+  --normal-font-size: 1rem;
+}
+
+/* === GALERIE SECTION === */
+.galerie {
+  background-color: var(--container-color);
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.galerie__title {
+  font-size: var(--h2-font-size);
+  color: var(--title-color);
+  margin-bottom: 0.5rem;
+}
+
+.galerie__subtitle {
+  color: var(--first-color);
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+/* === GALLERY GRID === */
+.galerie__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* === GALLERY ITEM === */
+.galerie__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.galerie__item:hover {
+  transform: scale(1.03);
+}
+
+.galerie__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+}
+
+.galerie__item:hover img {
+  filter: brightness(0.8);
+}
+
+/* === CAPTION OVERLAY === */
+.galerie__caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: #fff;
+  padding: 1rem;
+  text-align: left;
+  font-size: var(--normal-font-size);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.galerie__item:hover .galerie__caption {
+  opacity: 1;
+}
+
+/* === Responsive Adjustments === */
+@media screen and (max-width: 600px) {
+  .galerie__caption {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox__img {
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+}

@@ -1,66 +1,67 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// app/page.js
+import Link from "next/link";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* SECTION ACCUEIL */}
+      <section className="home section" id="home">
+        <div className="container home__container">
+          <div className="home__content">
+            <h1>D&amp;D Prime</h1>
+            <p>
+              Décoration d&apos;intérieur &amp; événementiel sur-mesure
+              pour créer des moments inoubliables.
+            </p>
+            <div className="home__buttons">
+              <Link href="/decoration-interieur" className="home__btn home__btn--outline">
+                Décoration d&apos;intérieur
+              </Link>
+              <Link href="/decoration-evenementielle" className="home__btn home__btn--outline">
+                Décoration événementielle
+              </Link>
+              <Link href="/wedding-planner" className="home__btn home__btn--outline">
+                Wedding &amp; planner
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </section>
+
+      {/* SECTION A PROPOS SUR LA MÊME PAGE */}
+      <section className="about section" id="about">
+        <div className="container about__container">
+          <div className="about__image-wrapper">
+            <img
+              src="/assets/img/about/profil.jpg"
+              alt="Décoratrice"
+              className="about__image"
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+
+          <div className="about__content">
+            <h2 className="section__title about__title">
+              À propos de D&amp;D Prime
+            </h2>
+            <span className="section__subtitle about__subtitle">
+              Votre décoratrice et organisatrice d&apos;événements
+            </span>
+
+            <p className="about__description">
+              D&amp;D Prime est née de la passion pour la décoration élégante
+              et les événements inoubliables. Nous transformons vos idées en
+              réalité, que ce soit pour sublimer un intérieur ou organiser le
+              plus beau jour de votre vie.
+            </p>
+
+            <div className="about__highlights">
+              <div className="about__highlight">🎉 +50 événements réalisés</div>
+              <div className="about__highlight">🏠 Décoration intérieure personnalisée</div>
+              <div className="about__highlight">✨ Créativité &amp; professionnalisme</div>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </>
   );
 }
