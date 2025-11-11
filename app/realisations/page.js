@@ -1,75 +1,117 @@
 // app/realisations/page.js
+"use client";
+
+import { useEffect, useState } from "react";
+import { getRealisationsPage } from "@/lib/cms";
+
 export default function RealisationsPage() {
+  const [data, setData] = useState({
+    title: "Réalisations",
+    subtitle: "",
+    projects: [],
+    sliderImages: [],
+  });
+
+  const [lightboxImage, setLightboxImage] = useState(null);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await getRealisationsPage();
+        setData(res);
+      } catch (e) {
+        console.error("Erreur chargement réalisations :", e);
+      }
+    }
+    load();
+  }, []);
+
+  const { title, subtitle, projects, sliderImages } = data;
+
+  console.log(projects);
+  
+
+  const openLightbox = (src) => setLightboxImage(src);
+  const closeLightbox = () => setLightboxImage(null);
+
+  // on duplique pour l'effet infini
+  const infiniteSliderImages = sliderImages.concat(sliderImages);
+
   return (
-    <section className="realisations section" id="realisations">
-      <h2 className="section__title">Réalisations</h2>
-      <span className="section__subtitle">
-        Quelques-unes de nos créations les plus marquantes
-      </span>
+    <>
+      <section className="realisations section" id="realisations">
+        <h2 className="section__title">{title}</h2>
+        <span className="section__subtitle">{subtitle}</span>
 
-      <div className="realisations__container container">
-        {/* Projet 1 */}
-        <div className="project-card">
-          <img
-            src="/assets/img/galerie/galerie1.jpg"
-            alt="Mariage bohème chic"
-            className="project-img"
-          />
-          <div className="project-content">
-            <h3 className="project-title">Mariage Bohème - Lyon</h3>
-            <p className="project-description">
-              Un mariage champêtre avec des tons beige, des fleurs séchées et une
-              ambiance chaleureuse en plein air.
-            </p>
-            <p className="project-details">
-              Lieu : Domaine des Cèdres | Juin 2025
-            </p>
-            <blockquote className="project-quote">
-              &quot;Merci D&amp;D Prime, vous avez sublimé notre journée !&quot;
-            </blockquote>
-          </div>
+        <div className="realisations__container container">
+          {projects.map((p) => (
+            <div key={p.id} className="project-card">
+              {p.image && (
+                <img
+                  src={p.image}
+                  alt={p.title}
+                  className="project-img"
+                  onClick={() => openLightbox(p.image)}
+                />
+              )}
+              <div className="project-content">
+                <h3 className="project-title">{p.title}</h3>
+                <p className="project-description">{p.description}</p>
+                {p.details && (
+                  <p className="project-details">{p.details}</p>
+                )}
+                {p.quote && (
+                  <blockquote className="project-quote">
+                    &quot;{p.quote}&quot;
+                  </blockquote>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* Projet 2 */}
-        <div className="project-card">
-          <img
-            src="/assets/img/galerie/galerie2.jpg"
-            alt="Anniversaire Jungle"
-            className="project-img"
-          />
-          <div className="project-content">
-            <h3 className="project-title">Anniversaire Jungle</h3>
-            <p className="project-description">
-              Une fête d&apos;anniversaire pour enfant aux couleurs tropicales,
-              avec des décors de lianes, feuilles exotiques et ballons.
-            </p>
-            <p className="project-details">Lieu : Montpellier | Mai 2025</p>
-            <blockquote className="project-quote">
-              &quot;Mon fils était aux anges ! Une jungle en vrai !&quot;
-            </blockquote>
+        {/* SLIDER D’IMAGES EN BAS (infini + cliquable) */}
+        {sliderImages.length > 0 && (
+          <div className="realisations__slider-wrapper">
+            <div className="realisations__slider">
+              <div className="realisations__slide-track">
+                {infiniteSliderImages.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`Réalisation ${i + 1}`}
+                    className="realisations__slide-image"
+                    onClick={() => openLightbox(src)}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        )}
+      </section>
 
-        {/* Projet 3 */}
-        <div className="project-card">
-          <img
-            src="/assets/img/galerie/galerie3.jpg"
-            alt="Décoration Intérieure"
-            className="project-img"
-          />
-          <div className="project-content">
-            <h3 className="project-title">Rénovation Salon Scandinave</h3>
-            <p className="project-description">
-              Refonte d&apos;un espace de vie avec un design épuré, du mobilier
-              clair et une ambiance lumineuse et moderne.
-            </p>
-            <p className="project-details">Lieu : Toulouse | Mars 2025</p>
-            <blockquote className="project-quote">
-              &quot;Un vrai cocon, je m&apos;y sens tellement bien maintenant !&quot;
-            </blockquote>
+      {/* LIGHTBOX */}
+      {lightboxImage && (
+        <div className="lightbox" onClick={closeLightbox}>
+          <div
+            className="lightbox__content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="lightbox__close"
+              type="button"
+              onClick={closeLightbox}
+            >
+              &times;
+            </button>
+            <img
+              src={lightboxImage}
+              alt="Réalisation agrandie"
+              className="lightbox__image"
+            />
           </div>
         </div>
-      </div>
-    </section>
+      )}
+    </>
   );
 }
