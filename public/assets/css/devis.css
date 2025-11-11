@@ -182,7 +182,7 @@
 
 /* Réseaux sociaux */
 
-.devis__socials {
+/* .devis__socials {
   margin-top: 2rem;
 }
 
@@ -216,7 +216,7 @@
 .devis__social-link:hover {
   color: var(--first-color-alt);
   transform: translateX(2px);
-}
+} */
 
 /* ===== Bouton "Appeler maintenant" ===== */
 

@@ -1,8 +1,24 @@
 // components/Footer.js
 import Link from "next/link";
+import { getFooterData } from "@/lib/cms";
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
+export default async function Footer() {
+  const {
+    tagline,
+    locationText,
+    phoneDisplay,
+    phoneLink,
+    emailDisplay,
+    emailLink,
+    instagramUrl,
+    snapchatUrl,
+    tiktokUrl,
+    copyrightText,
+    creditText,
+  } = await getFooterData();
+
+  console.log(phoneDisplay);
+  
 
   return (
     <footer className="footer">
@@ -12,10 +28,7 @@ export default function Footer() {
           <h3 className="footer__logo">
             D&amp;D <span>Prime</span>
           </h3>
-          <p className="footer__tagline">
-            Décoration d&apos;intérieur &amp; événementielle sur-mesure,
-            pour des moments élégants et inoubliables.
-          </p>
+          <p className="footer__tagline">{tagline}</p>
         </div>
 
         {/* Colonne 2 : Liens rapides */}
@@ -26,7 +39,9 @@ export default function Footer() {
               <Link href="/#home">Accueil</Link>
             </li>
             <li>
-              <Link href="/decoration-interieur">Décoration d&apos;intérieur</Link>
+              <Link href="/decoration-interieur">
+                Décoration d&apos;intérieur
+              </Link>
             </li>
             <li>
               <Link href="/decoration-evenementielle">
@@ -48,54 +63,74 @@ export default function Footer() {
         {/* Colonne 3 : Contact & réseaux */}
         <div className="footer__col">
           <h4 className="footer__title">Contact</h4>
-          <p className="footer__contact">
-            Basée à Montpellier et alentours.  
-            Disponible pour vos projets en Occitanie et au-delà.
-          </p>
-          <p className="footer__contact">
-            📞 <a href="tel:+33612345678">+33 6 12 34 56 78</a>
-          </p>
-          <p className="footer__contact">
-            ✉️ <a href="mailto:contact@ddprime.fr">contact@ddprime.fr</a>
-          </p>
+          <p className="footer__contact">{locationText}</p>
+
+          {phoneDisplay && (
+            <p className="footer__contact">
+              📞 <a href={`tel:${phoneLink.replace(/\s/g, "")}`}>{phoneDisplay}</a>
+            </p>
+          )}
+
+          {emailDisplay && (
+            <p className="footer__contact">
+              ✉️ <a href={`mailto:${emailLink}`}>{emailDisplay}</a>
+            </p>
+          )}
 
           <div className="footer__socials">
-            <a
-              href="https://instagram.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="footer__social-link"
-            >
-              <i className="uil uil-instagram" />
-            </a>
-            <a
-              href="#"
-              className="footer__social-link"
-            >
-              <i className="uil uil-snapchat-ghost" />
-            </a>
-            <a
-              href="#"
-              className="footer__social-link"
-            >
-              <i className="uil uil-music-note" />
-            </a>
-            <a
-              href="mailto:contact@ddprime.fr"
-              className="footer__social-link"
-            >
-              <i className="uil uil-envelope" />
-            </a>
+            {instagramUrl && (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="footer__social-link"
+                aria-label="Instagram"
+              >
+                <i className="uil uil-instagram" />
+              </a>
+            )}
+
+            {snapchatUrl && (
+              <a
+                href={snapchatUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="footer__social-link"
+                aria-label="Snapchat"
+              >
+                <i className="uil uil-snapchat-ghost" />
+              </a>
+            )}
+
+            {tiktokUrl && (
+              <a
+                href={tiktokUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="footer__social-link"
+                aria-label="TikTok"
+              >
+                <i className="uil uil-music-note" />
+              </a>
+            )}
+
+            {emailLink && (
+              <a
+                href={`mailto:${emailLink}`}
+                className="footer__social-link"
+                aria-label="Email"
+              >
+                <i className="uil uil-envelope" />
+              </a>
+            )}
           </div>
         </div>
       </div>
 
       <div className="footer__bottom">
         <div className="container footer__bottom-inner">
-          <p>© {currentYear} D&amp;D Prime. Tous droits réservés.</p>
-          <p className="footer__credit">
-            Design &amp; développement — Kevin TSHIBANGU.
-          </p>
+          <p>{copyrightText}</p>
+          <p className="footer__credit">{creditText}</p>
         </div>
       </div>
     </footer>

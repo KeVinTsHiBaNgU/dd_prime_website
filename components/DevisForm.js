@@ -145,7 +145,7 @@ export default function DevisForm({ content }) {
           </form>
 
           {/* Contacts & réseaux */}
-          <div className="devis__socials">
+          {/* <div className="devis__socials">
             <p className="devis__socials-title">{content.contactTitle}</p>
             <div className="devis__socials-list">
               {phone && (
@@ -183,7 +183,7 @@ export default function DevisForm({ content }) {
                 </div>
               )}
             </div>
-          </div>
+          </div> */}
 
           {/* Bouton Appeler maintenant */}
           <div className="devis__call">
