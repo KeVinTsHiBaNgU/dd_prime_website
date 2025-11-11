@@ -4,26 +4,29 @@ import { getInteriorPrestations } from "@/lib/cms";
 export const dynamic = "force-dynamic";
 
 export default async function DecorationInterieurPage() {
+  let sectionTitle = "Décoration d'intérieur";
+  let sectionSubtitle = "Des services sur-mesure pour sublimer vos intérieurs";
   let prestations = [];
 
   try {
-    prestations = await getInteriorPrestations();
+    const data = await getInteriorPrestations();
+    sectionTitle = data.sectionTitle;
+    sectionSubtitle = data.sectionSubtitle;
+    prestations = data.prestations;
   } catch (e) {
     console.error(e);
   }
 
   return (
     <section className="prestations section" id="prestations">
-      <h2 className="section__title">Décoration d&apos;intérieur</h2>
-      <span className="section__subtitle">
-        Des services sur-mesure pour sublimer vos intérieurs
-      </span>
+      <h2 className="section__title">{sectionTitle}</h2>
+      <span className="section__subtitle">{sectionSubtitle}</span>
 
       <div className="prestations__container container">
         {prestations.length === 0 && (
           <p style={{ textAlign: "center", width: "100%" }}>
-            (Aucune prestation trouvée – vérifie que tes contenus Strapi sont bien
-            publiés et que l’API est accessible.)
+            (Aucune prestation trouvée – vérifie que tes contenus Strapi sont
+            bien publiés et que l’API est accessible.)
           </p>
         )}
 

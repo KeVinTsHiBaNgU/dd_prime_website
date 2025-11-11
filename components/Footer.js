@@ -17,9 +17,6 @@ export default async function Footer() {
     creditText,
   } = await getFooterData();
 
-  console.log(phoneDisplay);
-  
-
   return (
     <footer className="footer">
       <div className="container footer__container">
