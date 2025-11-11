@@ -1,7 +1,7 @@
-// components/DevisForm.js
 "use client";
 
 import { useState } from "react";
+import Swal from "sweetalert2"; // ✅ import du pop-up stylé
 
 const prestationsOptions = [
   { value: "", label: "Sélectionnez une prestation" },
@@ -18,6 +18,71 @@ export default function DevisForm({ content }) {
   const email = content.email || "contact@ddprime.fr";
   const emailExemple = content.emailExemple || "exemple@adresse.com";
   const phone = content.phone || "+33 6 12 34 56 78";
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const form = e.currentTarget; // ✅ on garde une référence avant tout
+
+    if (!prestation) {
+      Swal.fire({
+        icon: "warning",
+        title: "Attention",
+        text: "Veuillez sélectionner une prestation avant d’envoyer le formulaire.",
+        confirmButtonColor: "#d9a441",
+      });
+      return;
+    }
+
+    const formData = new FormData(form);
+    const emailValue = formData.get("email");
+    const messageValue = formData.get("message");
+    const prestationValue = formData.get("prestation");
+
+    try {
+      const res = await fetch("/api/devis", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: emailValue,
+          prestation: prestationValue,
+          message: messageValue,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Erreur lors de l’envoi du devis");
+      }
+
+      // await Swal.fire({
+      //   icon: "success",
+      //   title: "Demande envoyée 🎉",
+      //   text: "Votre demande de devis a bien été enregistrée. Nous vous répondrons rapidement.",
+      //   confirmButtonColor: "#d9a441",
+      // });
+
+      await Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Demande envoyée 🎉",
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+      });
+
+      form.reset(); // ✅ on utilise la référence locale
+      setPrestation(""); // ✅ on réinitialise le select
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: "error",
+        title: "Oups !",
+        text: "Une erreur est survenue lors de l’envoi. Veuillez réessayer plus tard.",
+        confirmButtonColor: "#d9a441",
+      });
+    }
+  }
 
   return (
     <section className="devis section" id="devis">
@@ -43,19 +108,7 @@ export default function DevisForm({ content }) {
         </div>
 
         <div className="devis__form-wrapper">
-          <form
-            className="devis__form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (!prestation) {
-                alert(
-                  "Veuillez sélectionner une prestation avant d’envoyer le formulaire."
-                );
-                return;
-              }
-              // ici tu pourras brancher un vrai envoi plus tard
-            }}
-          >
+          <form className="devis__form" onSubmit={handleSubmit}>
             {/* Email */}
             <div className="devis__field">
               <label htmlFor="email" className="devis__label">
@@ -64,16 +117,16 @@ export default function DevisForm({ content }) {
               <input
                 type="email"
                 id="email"
+                name="email"
                 className="devis__input"
                 placeholder={emailExemple}
                 required
               />
             </div>
 
-            {/* Type de prestation - custom select */}
+            {/* Type de prestation */}
             <div className="devis__field">
               <label className="devis__label">Type de prestation *</label>
-
               <div className={`custom-select ${openSelect ? "is-open" : ""}`}>
                 <button
                   type="button"
@@ -97,7 +150,6 @@ export default function DevisForm({ content }) {
                 {openSelect && (
                   <ul className="custom-select__list">
                     {prestationsOptions
-                      // on enlève l’option vide du rendu
                       .filter((opt) => opt.value !== "")
                       .map((opt) => (
                         <li
@@ -115,8 +167,6 @@ export default function DevisForm({ content }) {
                       ))}
                   </ul>
                 )}
-
-                {/* valeur réelle envoyée avec le formulaire */}
                 <input
                   type="hidden"
                   name="prestation"
@@ -133,6 +183,7 @@ export default function DevisForm({ content }) {
               </label>
               <textarea
                 id="message"
+                name="message"
                 className="devis__textarea"
                 rows={5}
                 placeholder="Parlez-nous de votre projet : date, lieu, nombre d'invités, style souhaité..."
@@ -143,47 +194,6 @@ export default function DevisForm({ content }) {
               Envoyer ma demande
             </button>
           </form>
-
-          {/* Contacts & réseaux */}
-          {/* <div className="devis__socials">
-            <p className="devis__socials-title">{content.contactTitle}</p>
-            <div className="devis__socials-list">
-              {phone && (
-                <a href={`tel:${phone}`} className="devis__social-link">
-                  <i className="uil uil-phone" />
-                  <span>{phone}</span>
-                </a>
-              )}
-
-              {email && (
-                <a href={`mailto:${email}`} className="devis__social-link">
-                  <i className="uil uil-envelope" />
-                  <span>{email}</span>
-                </a>
-              )}
-
-              {content.instagram && (
-                <div className="devis__social-link">
-                  <i className="uil uil-instagram" />
-                  <span>{content.instagram}</span>
-                </div>
-              )}
-
-              {content.snapchat && (
-                <div className="devis__social-link">
-                  <i className="uil uil-snapchat-ghost" />
-                  <span>{content.snapchat}</span>
-                </div>
-              )}
-
-              {content.tiktok && (
-                <div className="devis__social-link">
-                  <i className="uil uil-music-note" />
-                  <span>{content.tiktok}</span>
-                </div>
-              )}
-            </div>
-          </div> */}
 
           {/* Bouton Appeler maintenant */}
           <div className="devis__call">
