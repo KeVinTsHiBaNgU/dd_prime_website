@@ -1,61 +1,51 @@
 // app/page.js
 import Link from "next/link";
+import { getHomePage } from "@/lib/cms";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const {
+    title,
+    subtitle,
+    buttons,
+    backgrounds,
+    aboutTitle,
+    aboutSubtitle,
+    aboutDescription,
+    highlights,
+    aboutImages,
+  } = await getHomePage();
+
   return (
     <>
       {/* SECTION ACCUEIL */}
       <section className="home section" id="home">
-        {/* Fond avec images qui se succèdent */}
+        {/* Fond avec images qui se succèdent en fondu */}
         <div className="home__bg-fade">
-          <img
-            src="/assets/img/about/profil.jpg"
-            alt="Décor 1"
-            className="home__bg-image home__bg-image--1"
-          />
-          <img
-            src="/assets/img/about/profil1.jpg"
-            alt="Décor 2"
-            className="home__bg-image home__bg-image--2"
-          />
-          <img
-            src="/assets/img/about/profil2.jpg"
-            alt="Décor 3"
-            className="home__bg-image home__bg-image--3"
-          />
-          <img
-            src="/assets/img/about/profil3.jpg"
-            alt="Décor 4"
-            className="home__bg-image home__bg-image--4"
-          />
+          {backgrounds.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt={`Décor ${i + 1}`}
+              className={`home__bg-image home__bg-image--${i + 1}`}
+              style={{ animationDelay: `${i * 6}s` }} // 6s par image si tu veux lisser
+            />
+          ))}
         </div>
 
         <div className="container home__container">
           <div className="home__content">
-            <h1>D&amp;D Prime</h1>
-            <p>
-              Décoration d&apos;intérieur &amp; événementiel sur-mesure
-              pour créer des moments inoubliables.
-            </p>
+            <h1>{title}</h1>
+            <p>{subtitle}</p>
             <div className="home__buttons">
-              <Link
-                href="/decoration-interieur"
-                className="home__btn home__btn--outline"
-              >
-                Décoration d&apos;intérieur
-              </Link>
-              <Link
-                href="/decoration-evenementielle"
-                className="home__btn home__btn--outline"
-              >
-                Décoration événementielle
-              </Link>
-              <Link
-                href="/wedding-planner"
-                className="home__btn home__btn--outline"
-              >
-                Wedding &amp; planner
-              </Link>
+              {buttons.map((btn) => (
+                <Link
+                  key={btn.id}
+                  href={btn.url}
+                  className="home__btn home__btn--outline"
+                >
+                  {btn.label}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
@@ -67,53 +57,32 @@ export default function HomePage() {
           <div className="about__image-wrapper">
             <div className="about__slider">
               <div className="about__slide-track">
-                <img
-                  src="/assets/img/about/profil.jpg"
-                  alt="Décoratrice 1"
-                  className="about__image"
-                />
-                <img
-                  src="/assets/img/about/profil1.jpg"
-                  alt="Décoratrice 2"
-                  className="about__image"
-                />
-                <img
-                  src="/assets/img/about/profil2.jpg"
-                  alt="Décoratrice 3"
-                  className="about__image"
-                />
-                <img
-                  src="/assets/img/about/profil3.jpg"
-                  alt="Décoratrice 4"
-                  className="about__image"
-                />
+                {aboutImages.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`Décoratrice ${i + 1}`}
+                    className="about__image"
+                  />
+                ))}
               </div>
             </div>
           </div>
 
           <div className="about__content">
-            <h2 className="section__title about__title">
-              À propos de D&amp;D Prime
-            </h2>
+            <h2 className="section__title about__title">{aboutTitle}</h2>
             <span className="section__subtitle about__subtitle">
-              Votre décoratrice et organisatrice d&apos;événements
+              {aboutSubtitle}
             </span>
 
-            <p className="about__description">
-              D&amp;D Prime est née de la passion pour la décoration élégante et
-              les événements inoubliables. Nous transformons vos idées en
-              réalité, que ce soit pour sublimer un intérieur ou organiser le
-              plus beau jour de votre vie.
-            </p>
+            <p className="about__description">{aboutDescription}</p>
 
             <div className="about__highlights">
-              <div className="about__highlight">🎉 +50 événements réalisés</div>
-              <div className="about__highlight">
-                🏠 Décoration intérieure personnalisée
-              </div>
-              <div className="about__highlight">
-                ✨ Créativité &amp; professionnalisme
-              </div>
+              {highlights.map((h) => (
+                <div key={h.id} className="about__highlight">
+                  {h.icon} {h.text}
+                </div>
+              ))}
             </div>
           </div>
         </div>
