@@ -13,7 +13,6 @@
 
 .prestations {
   padding: 4rem 1rem;
-  background-color: #fff;
   text-align: center;
 }
 
@@ -106,23 +105,14 @@
 
 /* Prix sur la carte */
 /* --- Prix stylisé --- */
-.prestation__price {
-  margin-top: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: linear-gradient(135deg, #d4af37, #f5d76e);
-  color: #2b2b2b;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  letter-spacing: 0.3px;
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  text-transform: capitalize;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.prestation__price{
+  margin-top:.9rem; display:inline-flex; align-items:center; gap:.45rem;
+  background:linear-gradient(135deg, color-mix(in oklab, var(--first-color) 70%, #fff 30%), var(--first-color));
+  color:#1f1f1f; font-weight:700; font-size:1rem; padding:.5rem .95rem; border-radius:999px;
+  letter-spacing:.25px; box-shadow:0 6px 16px color-mix(in oklab, var(--first-color) 45%, #000 0%);
+  border:1px solid rgba(255,255,255,.55);
 }
+.theme-midnight .prestation__price{ color:#181818; }
 
 .prestation__price::before {
   font-size: 1.1rem;

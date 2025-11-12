@@ -1,20 +1,109 @@
 /* ===== VARIABLES CSS ===== */
+/* ===== BASE (fallback) ===== */
 :root {
-  --first-color: #d9a441;
-  --first-color-alt: #bf8a2d;
-  --body-color: #ffffff;
+  --body-color: #f8f6f3;
   --title-color: #1e1e1e;
-  --text-color: #555;
-  --container-color: #f9f9f9;
+  --text-color: #5b5450;
+  --container-color: #ffffff;
 
-  --h1-font-size: 2.5rem;
+  --first-color: #d4af37;
+  --first-color-alt: #c79b2b;
+
+  --h1-font-size: 2.6rem;
   --h2-font-size: 2rem;
-  --h3-font-size: 1.25rem;
   --normal-font-size: 1rem;
-  --small-font-size: 0.875rem;
+  --small-font-size: 0.9rem;
+}
 
-  --font-medium: 500;
-  --font-semi-bold: 600;
+/* ===== THEME A — Dusty Rose / Lavender (fond papier texturé) ===== */
+.theme-rose {
+  --body-color: #f7efef;
+  --title-color: #2a2424;
+  --text-color: #5b4f4f;
+  --container-color: #ffffff;
+
+  --first-color: #c77b8b; /* accent rose */
+  --first-color-alt: #a96070; /* hover */
+
+  --badge-1: #bfa4c7; /* lavender */
+  --badge-2: #e9b4b4; /* peach-rose */
+  --badge-3: #efd6a7; /* miel doux */
+}
+
+/* Fond: papier + vignette + bruit léger */
+.theme-rose body {
+  background: radial-gradient(
+      1400px 700px at 50% -200px,
+      rgba(0, 0, 0, 0.04),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #fbf6f6 0%, #f7efef 100%);
+}
+.theme-rose .noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='table' tableValues='0 0 .02 .06'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.25;
+  mix-blend-mode: multiply;
+}
+
+/* ===== THEME B — Emerald / Sage (fond dégradé organique) ===== */
+.theme-emerald {
+  --body-color: #f4f7f5;
+  --title-color: #19221d;
+  --text-color: #3f4a44;
+  --container-color: #ffffff;
+
+  --first-color: #2f8f83; /* émeraude doux */
+  --first-color-alt: #257568;
+
+  --badge-1: #c8dfc6; /* sauge pâle */
+  --badge-2: #d9e6d2; /* tea */
+  --badge-3: #f1e5c5; /* lin */
+}
+
+.theme-emerald body {
+  background: radial-gradient(
+      900px 600px at 20% -200px,
+      rgba(47, 143, 131, 0.15),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 80% -200px,
+      rgba(105, 170, 120, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #f7faf8 0%, #f4f7f5 100%);
+}
+
+/* ===== THEME C — Midnight & Gold (fond sombre luxe) ===== */
+.theme-midnight {
+  --body-color: #0f1216;
+  --title-color: #f6f6f6;
+  --text-color: #c9cdd2;
+  --container-color: #141922;
+
+  --first-color: #d4af37; /* or */
+  --first-color-alt: #b9922b;
+
+  --badge-1: #1e2430; /* bulles */
+  --badge-2: #222a38;
+  --badge-3: #1a202b;
+}
+
+.theme-midnight body {
+  background: radial-gradient(
+      1200px 700px at 50% -220px,
+      rgba(212, 175, 55, 0.18),
+      rgba(0, 0, 0, 0) 60%
+    ),
+    linear-gradient(180deg, #0d1014 0%, #0f1216 100%);
+}
+.theme-midnight .prestation__card {
+  background: var(--container-color);
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 /* ===== BASE ===== */
@@ -26,23 +115,23 @@
 
 html {
   scroll-behavior: smooth;
-  height: 100%;          /* <-- important pour le flex du body */
+  height: 100%; /* <-- important pour le flex du body */
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   font-size: var(--normal-font-size);
   background-color: var(--body-color);
   color: var(--text-color);
   line-height: 1.6;
-  padding-top: 80px;     /* espace pour le header fixe */
-  min-height: 100vh;     /* le body couvre toute la hauteur */
-  display: flex;         /* on active le flex sur le body */
+  padding-top: 80px; /* espace pour le header fixe */
+  min-height: 100vh; /* le body couvre toute la hauteur */
+  display: flex; /* on active le flex sur le body */
   flex-direction: column;
 }
 
 main {
-  flex: 1;               /* le contenu pousse le footer vers le bas */
+  flex: 1; /* le contenu pousse le footer vers le bas */
 }
 
 img {
@@ -70,15 +159,11 @@ a {
 }
 
 .section__title {
-  font-size: var(--h2-font-size);
   color: var(--title-color);
-  margin-bottom: 0.5rem;
 }
-
 .section__subtitle {
   color: var(--first-color);
-  font-weight: var(--font-medium);
-  margin-bottom: 2rem;
+  font-weight: 600;
 }
 
 /* ================= HEADER & NAVIGATION ================= */
@@ -103,12 +188,19 @@ a {
 }
 
 /* Logo */
+
 .nav__logo {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #d19761;
-  font-family: 'Playfair Display', serif;
-  letter-spacing: 0.05em;
+  color: var(--first-color);
+}
+.nav__link {
+  color: var(--title-color);
+}
+.nav__link::after {
+  background: var(--first-color);
+}
+.nav__link:hover,
+.nav__link.active-link {
+  color: var(--first-color);
 }
 
 .nav__logo span {
@@ -128,19 +220,8 @@ a {
   list-style: none;
 }
 
-.nav__link {
-  font-size: 0.9rem;
-  color: #444;
-  text-transform: uppercase;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  position: relative;
-  transition: color 0.3s ease, transform 0.2s ease;
-  white-space: nowrap; /* évite que "À PROPOS" se coupe en deux lignes */
-}
-
 .nav__link::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: -4px;
@@ -148,12 +229,6 @@ a {
   height: 2px;
   background-color: #d19761;
   transition: width 0.3s ease;
-}
-
-.nav__link:hover,
-.nav__link.active-link {
-  color: #d19761;
-  transform: translateY(-1px);
 }
 
 .nav__link:hover::after,
@@ -303,7 +378,6 @@ a {
   }
 }
 
-
 /* Boutons d'accueil */
 .home__buttons {
   display: flex;
@@ -341,7 +415,6 @@ a {
   background-color: var(--first-color);
   color: #fff;
 }
-
 
 /* ================= MEDIA QUERIES ================= */
 
@@ -398,7 +471,6 @@ a {
   }
 }
 
-
 /* ===== FOOTER ===== */
 /* Supprime les marges excessives après les sections */
 .section:last-of-type {
@@ -435,7 +507,7 @@ a {
   font-size: 1.6rem;
   font-weight: 700;
   color: var(--title-color);
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   margin-bottom: 0.5rem;
 }
 
@@ -511,8 +583,8 @@ a {
   justify-content: center;
   background-color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease,
-    border-color 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .footer__social-link i {
