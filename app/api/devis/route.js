@@ -45,6 +45,32 @@ function sanitizeInput(text = "") {
     .trim();
 }
 
+function socialsFooterHtmlCID() {
+  const colorFilter =
+    "filter: saturate(0) brightness(0) sepia(1) hue-rotate(345deg) saturate(5) brightness(0.95);"; // teinte dorée approx.
+
+  const item = (href, cid, alt) =>
+    href
+      ? `
+    <a href="${href}" style="text-decoration:none;margin:0 8px;display:inline-block;">
+      <img src="cid:${cid}" width="20" height="20" alt="${alt}" style="${colorFilter} display:block;border:0;outline:none;">
+    </a>`
+      : "";
+
+  return `
+    <div style="text-align:center;margin-top:16px;">
+      <p style="margin-bottom:8px;font-family:Segoe UI,Arial,sans-serif;color:${BRAND_MUTED};font-size:13px;">
+        Suivez & contactez <strong>${BRAND_NAME}</strong> :
+      </p>
+      <div>
+        ${item(SOCIALS.instagram, "icon-instagram", "Instagram")}
+        ${item(SOCIALS.snapchat, "icon-snapchat", "Snapchat")}
+        ${item(SOCIALS.tiktok, "icon-tiktok", "TikTok")}
+      </div>
+    </div>
+  `;
+}
+
 function socialsFooterHtml() {
   return `
     <div style="text-align:center;margin-top:16px;">
@@ -121,19 +147,12 @@ function emailLayout({ title, intro, contentHtml, footerNote }) {
                 ${contentHtml}
               </td>
             </tr>
-
-            <tr>
-              <td style="padding:16px 24px 24px 24px;font-family:Segoe UI,Arial,sans-serif;font-size:12px;color:${BRAND_MUTED}">
-                ${footerNote || ""}
-                <p style="margin:8px 0 0 0;">© ${new Date().getFullYear()} ${BRAND_NAME}. Tous droits réservés.</p>
-              </td>
-            </tr>
           </table>
 
           <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="width:600px;max-width:100%;margin-top:12px;">
             <tr>
               <td style="padding:16px 24px 24px 24px;font-family:Segoe UI,Arial,sans-serif;font-size:12px;color:${BRAND_MUTED}">
-                ${socialsFooterHtml()}
+                ${socialsFooterHtmlCID()}
                 ${footerNote || ""}
                 <p style="margin:8px 0 0 0;">© ${new Date().getFullYear()} ${BRAND_NAME}. Tous droits réservés.</p>
               </td>
@@ -262,6 +281,24 @@ export async function POST(req) {
     const body = await req.json();
     const { email, phone, prestation, message } = body || {};
 
+    const commonAttachments = [
+      {
+        filename: "instagram.png",
+        path: `${process.cwd()}/public/assets/img/email/instagram.png`,
+        cid: "icon-instagram",
+      },
+      {
+        filename: "snapchat.png",
+        path: `${process.cwd()}/public/assets/img/email/snapchat.png`,
+        cid: "icon-snapchat",
+      },
+      {
+        filename: "tiktok.png",
+        path: `${process.cwd()}/public/assets/img/email/tiktok.png`,
+        cid: "icon-tiktok",
+      },
+    ];
+
     if (!email || !prestation) {
       return NextResponse.json(
         { error: "Email et prestation sont obligatoires." },
@@ -329,6 +366,7 @@ export async function POST(req) {
               phone,
               devisId,
             }),
+            attachments: commonAttachments,
           }),
           transporter.sendMail({
             from: FROM_EMAIL,
@@ -339,6 +377,7 @@ export async function POST(req) {
               safeMessage,
               phone,
             }),
+            attachments: commonAttachments,
           }),
         ]);
       } catch (err) {
