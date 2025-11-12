@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Swal from "sweetalert2"; // ✅ import du pop-up stylé
+import DOMPurify from "dompurify";
+
 
 const prestationsOptions = [
   { value: "", label: "Sélectionnez une prestation" },
@@ -36,7 +38,9 @@ export default function DevisForm({ content }) {
 
     const formData = new FormData(form);
     const emailValue = formData.get("email");
-    const messageValue = formData.get("message");
+    const phone = formData.get("phone");
+    const rawMessage = formData.get("message");
+    const messageValue = DOMPurify.sanitize(rawMessage, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
     const prestationValue = formData.get("prestation");
 
     try {
@@ -45,6 +49,7 @@ export default function DevisForm({ content }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: emailValue,
+          phone: phone,
           prestation: prestationValue,
           message: messageValue,
         }),
@@ -121,6 +126,23 @@ export default function DevisForm({ content }) {
                 className="devis__input"
                 placeholder={emailExemple}
                 required
+              />
+            </div>
+
+            {/* Téléphone */}
+            <div className="devis__field">
+              <label htmlFor="phone" className="devis__label">
+                Votre numéro de téléphone
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                className="devis__input"
+                placeholder="+33 6 12 34 56 78"
+                // pattern="^\\+33\\s?0?[67](\\s?\\d{2}){4}$|^\\+33[67]\\d{8}$"
+                inputMode="tel"
+                autoComplete="tel"
               />
             </div>
 

@@ -38,8 +38,8 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      {/* <body className={isHomePage ? "home-page" : ""}> */}
-      <body>
+      <body className={isHomePage ? "home-page" : ""}>
+      {/* <body> */}
         <Header />
         <main>{children}</main>
         <Footer />
