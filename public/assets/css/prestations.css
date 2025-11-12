@@ -1,32 +1,30 @@
 /* ===== PRESTATIONS STYLES ===== */
-:root {
-  --first-color: #d9a441;
-  --first-color-alt: #bf8a2d;
-  --body-color: #ffffff;
-  --title-color: #1e1e1e;
-  --text-color: #555;
-  --container-color: #f9f9f9;
+/* ===== THEME PRO V2 ===== */
+:root{
+  /* Couleurs */
+  --bg-ivory: #F7F4EF;          /* clair chaleureux */
+  --bg-rose:  #F4E7E7;          /* blush */
+  --bg-teal:  #E9F2F1;          /* vert doux */
+  --ink:      #1E1E1E;          /* titres */
+  --ink-sub:  #4B4743;          /* textes */
+  --gold:     #D4AF37;          /* accent */
+  --gold-2:   #BE9627;
 
-  --h2-font-size: 2rem;
+  /* Alias existants */
+  --body-color: var(--bg-ivory);
+  --title-color: var(--ink);
+  --text-color: var(--ink-sub);
+  --first-color: var(--gold);
+  --first-color-alt: var(--gold-2);
+
+  --h1-font-size: 2.75rem;
+  --h2-font-size: 2.1rem;
   --normal-font-size: 1rem;
 }
 
 .prestations {
   padding: 4rem 1rem;
-  background-color: #fff;
   text-align: center;
-}
-
-.prestations .section__title {
-  font-size: 2.5rem;
-  color: var(--title-color);
-  margin-bottom: 0.5rem;
-}
-
-.prestations .section__subtitle {
-  color: var(--first-color);
-  font-size: 1.1rem;
-  margin-bottom: 3rem;
 }
 
 .prestations__container {
@@ -34,6 +32,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
+  margin-top: 3rem;
 }
 
 .prestation__card {
@@ -106,22 +105,13 @@
 
 /* Prix sur la carte */
 /* --- Prix stylisé --- */
-.prestation__price {
-  margin-top: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: linear-gradient(135deg, #d4af37, #f5d76e);
-  color: #2b2b2b;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  letter-spacing: 0.3px;
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  text-transform: capitalize;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.prestation__price{
+  margin-top:.9rem; display:inline-flex; align-items:center; gap:.45rem;
+  background: linear-gradient(135deg, #EADCA9, var(--gold));
+  color:#2b2b2b; font-weight:700; font-size:1rem;
+  padding:.5rem .95rem; border-radius:999px;
+  box-shadow:0 8px 18px rgba(212,175,55,.22);
+  border:1px solid rgba(255,255,255,.5);
 }
 
 .prestation__price::before {

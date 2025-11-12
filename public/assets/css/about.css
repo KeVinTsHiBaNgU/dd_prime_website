@@ -1,12 +1,23 @@
-:root {
-  --first-color: #d9a441;
-  --first-color-alt: #bf8a2d;
-  --body-color: #ffffff;
-  --title-color: #1e1e1e;
-  --text-color: #555;
-  --container-color: #f9f9f9;
+/* ===== THEME PRO V2 ===== */
+:root{
+  /* Couleurs */
+  --bg-ivory: #F7F4EF;          /* clair chaleureux */
+  --bg-rose:  #F4E7E7;          /* blush */
+  --bg-teal:  #E9F2F1;          /* vert doux */
+  --ink:      #1E1E1E;          /* titres */
+  --ink-sub:  #4B4743;          /* textes */
+  --gold:     #D4AF37;          /* accent */
+  --gold-2:   #BE9627;
 
-  --h2-font-size: 2rem;
+  /* Alias existants */
+  --body-color: var(--bg-ivory);
+  --title-color: var(--ink);
+  --text-color: var(--ink-sub);
+  --first-color: var(--gold);
+  --first-color-alt: var(--gold-2);
+
+  --h1-font-size: 2.75rem;
+  --h2-font-size: 2.1rem;
   --normal-font-size: 1rem;
 }
 
