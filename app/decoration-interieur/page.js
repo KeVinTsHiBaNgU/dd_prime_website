@@ -1,21 +1,12 @@
 // app/decoration-interieur/page.js
-import { getInteriorPrestations } from "@/lib/cms";
+import { getInteriorConfig, getInteriorPrestations } from "@/lib/cms";
+import SliderWithLightbox from "@/components/SliderWithLightbox";
 
 export const dynamic = "force-dynamic";
 
 export default async function DecorationInterieurPage() {
-  let sectionTitle = "Décoration d'intérieur";
-  let sectionSubtitle = "Des services sur-mesure pour sublimer vos intérieurs";
-  let prestations = [];
-
-  try {
-    const data = await getInteriorPrestations();
-    sectionTitle = data.sectionTitle;
-    sectionSubtitle = data.sectionSubtitle;
-    prestations = data.prestations;
-  } catch (e) {
-    console.error(e);
-  }
+  const [{ sectionTitle, sectionSubtitle, sliderImages }, prestations] =
+    await Promise.all([getInteriorConfig(), getInteriorPrestations()]);
 
   return (
     <section className="prestations section" id="prestations">
@@ -53,9 +44,23 @@ export default async function DecorationInterieurPage() {
                   ))}
               </ul>
             )}
+
+            {/* 👇 Prix "à partir de ..." */}
+            {presta.priceFrom != null && (
+              <div className="prestation__price">
+                à partir de {presta.priceFrom} €
+              </div>
+            )}
           </article>
         ))}
       </div>
+
+      {/* 👇 Slider d’images en bas (défilement infini) */}
+      {sliderImages.length > 0 && (
+        <div className="wp__slider-wrapper">
+          <SliderWithLightbox images={sliderImages} />
+        </div>
+      )}
     </section>
   );
 }

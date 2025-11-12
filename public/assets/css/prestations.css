@@ -103,3 +103,131 @@
     max-width: 90%;
   }
 }
+
+/* Prix sur la carte */
+/* --- Prix stylisé --- */
+.prestation__price {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: linear-gradient(135deg, #d4af37, #f5d76e);
+  color: #2b2b2b;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  text-transform: capitalize;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prestation__price::before {
+  font-size: 1.1rem;
+}
+
+.prestation__price:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.35);
+}
+
+
+/* ===== Slider Wedding - continu sans espace ===== */
+/* Slider infini (wedding) */
+.wp__slider-wrapper { margin-top: 2.5rem; }
+.wp__slider { overflow: hidden; position: relative; }
+.wp__slide-track {
+  display: flex; width: max-content; gap: 1rem;
+  animation: wpScroll 30s linear infinite;
+}
+
+.wp__slide-image:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,0,0,.12); }
+
+.wp__slide-btn {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: block;
+  line-height: 0;
+}
+
+.wp__slide-image {
+  display: block;           /* évite les petits espaces inline */
+  width: 660px;             /* largeur fixe pour un loop parfaitement lisse */
+  height: 330px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 22px rgba(0,0,0,.08);
+  transition: transform .25s ease, box-shadow .25s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.wp__slide-image:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+}
+
+/* animation infinie sans "trou" (on duplique les images en JSX) */
+@keyframes wpScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .wp__slide-image { width: 360px; height: 240x; }
+  .wp__slide-track { animation-duration: 36s; }
+}
+
+/* ===== Lightbox ===== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+
+.lightbox__img {
+  max-width: min(96vw, 1200px);
+  max-height: 86vh;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.5);
+}
+
+.lightbox__close {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  font-size: 36px;
+  line-height: 1;
+  color: #fff;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.lightbox__nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 44px;
+  line-height: 1;
+  color: #fff;
+  background: rgba(0,0,0,.25);
+  border: 0;
+  border-radius: 8px;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+}
+.lightbox__prev { left: 22px; }
+.lightbox__next { right: 22px; }
+
+.lightbox__nav:hover,
+.lightbox__close:hover { opacity: .9; }
+

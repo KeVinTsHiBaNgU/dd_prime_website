@@ -1,29 +1,25 @@
 // app/decoration-evenementielle/page.js
-import { getEventPrestations } from "@/lib/cms";
+import { getEventConfig, getEventPrestations } from "@/lib/cms";
+import SliderWithLightbox from "@/components/SliderWithLightbox";
 
 export const dynamic = "force-dynamic"; // pour voir tout de suite les changements du CMS
 
 export default async function DecorationEvenementiellePage() {
-  let prestations = [];
-
-  try {
-    prestations = await getEventPrestations();
-  } catch (e) {
-    console.error(e);
-  }
+  const [{ sectionTitle, sectionSubtitle, sliderImages }, prestations] =
+    await Promise.all([getEventConfig(), getEventPrestations()]);
 
   return (
     <section className="prestations section" id="evenementiel">
-      <h2 className="section__title">Décoration événementielle</h2>
-      <span className="section__subtitle">
-        Des décors sur-mesure pour tous vos événements
-      </span>
+      <h2 className="section__title">{sectionTitle}</h2>
+      {sectionSubtitle && (
+        <span className="section__subtitle">{sectionSubtitle}</span>
+      )}
 
       <div className="prestations__container container">
         {prestations.length === 0 && (
           <p style={{ textAlign: "center", width: "100%" }}>
-            (Aucune prestation trouvée – vérifie que tes contenus Strapi sont bien
-            publiés et que l’API est accessible.)
+            (Aucune prestation trouvée – vérifie que tes contenus Strapi sont
+            bien publiés et que l’API est accessible.)
           </p>
         )}
 
@@ -50,9 +46,23 @@ export default async function DecorationEvenementiellePage() {
                   ))}
               </ul>
             )}
+
+            {/* 👇 Prix "à partir de ..." */}
+            {presta.priceFrom != null && (
+              <div className="prestation__price">
+                à partir de {presta.priceFrom} €
+              </div>
+            )}
           </article>
         ))}
       </div>
+
+      {/* 👇 Slider d’images en bas (défilement infini) */}
+      {sliderImages.length > 0 && (
+        <div className="wp__slider-wrapper">
+          <SliderWithLightbox images={sliderImages} />
+        </div>
+      )}
     </section>
   );
 }
