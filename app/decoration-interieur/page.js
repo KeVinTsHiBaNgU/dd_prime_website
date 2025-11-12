@@ -10,7 +10,7 @@ export default async function DecorationInterieurPage() {
 
   return (
     <section className="prestations section" id="prestations">
-      <h2 className="section__title">{sectionTitle}</h2>
+      <h2 className="section__title heading-ribbon">{sectionTitle}</h2>
       <span className="section__subtitle">{sectionSubtitle}</span>
 
       <div className="prestations__container container">

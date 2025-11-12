@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className={isHomePage ? "home-page" : ""}>
+      <body className={isHomePage ? "home-page theme-pro" : "theme-pro"}>
       {/* <body> */}
         <Header />
         <main>{children}</main>

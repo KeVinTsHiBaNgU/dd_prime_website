@@ -186,7 +186,7 @@ a {
   background: linear-gradient(to right, #fffbe6, #fff);
   text-align: center;
   padding: 0 1rem;
-  margin-top: -80px; /* enlève le décalage dû au padding-top du body */
+  margin-top: -60px; /* enlève le décalage dû au padding-top du body */
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
@@ -576,4 +576,162 @@ a {
     flex-direction: column;
     text-align: center;
   }
+}
+
+/* ================= THEME PRO ================= */
+.theme-pro{
+  --bg-a: #F6EFE9;          /* ivoire rosé */
+  --bg-b: #F0F5F7;          /* bleu très pâle */
+  --title-color: #1D1C1A;
+  --text-color:  #4E4A46;
+  --border-soft: #E7E2DC;
+
+  --accent:   #B07CC6;      /* mauve pro */
+  --accent-2: #E3A37C;      /* terracotta doux */
+  --accent-3: #7CB5A6;      /* sauge bleutée */
+
+  --first-color: var(--accent);
+  --first-color-alt: #9A61BC;
+
+  --container-color: #ffffff;
+}
+
+/* Fond : dégradés croisés + léger vignettage */
+.theme-pro body{
+  background:
+    radial-gradient(1200px 600px at 20% -200px, rgba(176,124,198,.10), transparent 60%),
+    radial-gradient(1000px 500px at 90% -120px, rgba(124,181,166,.10), transparent 55%),
+    linear-gradient(180deg, var(--bg-a), var(--bg-b));
+  color: var(--text-color);
+}
+
+/* HEADER / NAV plus “pro” */
+.theme-pro .header{
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border-soft);
+  box-shadow: 0 6px 18px rgba(0,0,0,.04);
+}
+.theme-pro .nav__logo{ color: var(--accent); font-weight: 800; letter-spacing:.4px; }
+.theme-pro .nav__list{ gap: 1.6rem; }
+.theme-pro .nav__link{
+  color: #2F2C29;
+  padding: .35rem .6rem;
+  border-radius: 10px;
+  transition: color .2s ease, background .2s ease;
+}
+.theme-pro .nav__link:hover,
+.theme-pro .nav__link.active-link{
+  color: var(--accent);
+  background: rgba(176,124,198,.08);
+}
+
+/* TITRES / SOUS-TITRES */
+.theme-pro .section__title{
+  color: var(--title-color);
+  letter-spacing: .2px;
+}
+.theme-pro .section__subtitle{
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+/* BOUTONS */
+.theme-pro .home__btn{
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid transparent;
+  box-shadow: 0 10px 22px rgba(176,124,198,.20);
+}
+.theme-pro .home__btn:hover{
+  background: var(--first-color-alt);
+}
+.theme-pro .home__btn--outline{
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.theme-pro .home__btn--outline:hover{
+  background: var(--accent);
+  color: #fff;
+}
+
+/* CARTES PRESTATIONS */
+.theme-pro .prestation__card{
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  box-shadow: 0 14px 36px rgba(0,0,0,.06);
+}
+.theme-pro .prestation__icon{
+  font-size: 1.45rem;
+  background: linear-gradient(135deg, rgba(176,124,198,.12), rgba(227,163,124,.12));
+  border-radius: 12px;
+  padding: .45rem .6rem;
+  width: fit-content;
+}
+
+/* LISTE en chips pro */
+.theme-pro .prestation__list{
+  display: flex; flex-wrap: wrap; gap: .45rem;
+}
+.theme-pro .prestation__list li{
+  background: rgba(124,181,166,.10);
+  border: 1px solid rgba(124,181,166,.15);
+  color: #2E403C;
+  border-radius: 999px;
+  padding: .35rem 1rem;
+  font-size: .95rem;
+}
+
+/* PRIX premium (mauve → terracotta) */
+.theme-pro .prestation__price{
+  margin-top: .9rem;
+  display: inline-flex; align-items: center; gap: .45rem;
+  background: linear-gradient(135deg, rgba(176,124,198,.16), rgba(227,163,124,.16));
+  color: #2b2b2b;
+  border: 1px solid rgba(176,124,198,.35);
+  padding: .55rem .9rem;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(176,124,198,.18);
+}
+.theme-pro .prestation__price::before{ content:"★"; color: var(--accent); }
+
+/* SLIDER (images) cadre pro */
+.theme-pro .wp__slide-image{
+  border-radius: 14px;
+  border: 2px solid rgba(176,124,198,.18);
+  box-shadow: 0 14px 28px rgba(0,0,0,.10);
+}
+
+/* LIGHTBOX NAV boutons */
+.theme-pro .lightbox__nav{
+  background: linear-gradient(180deg, rgba(176,124,198,.45), rgba(176,124,198,.25));
+  border: 1px solid rgba(255,255,255,.4);
+}
+.theme-pro .lightbox__close{ color:#fff; }
+
+/* FOOTER pro */
+.theme-pro .footer{
+  background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.9));
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-color);
+}
+.theme-pro .footer a{ color: var(--accent); }
+.theme-pro .footer a:hover{ color: var(--first-color-alt); }
+
+/* SECTIONS “accentuées” (optionnelles) */
+.theme-pro #wedding .section__subtitle{ color: var(--accent); }
+.theme-pro #decoration-evenementielle .section__subtitle{ color: var(--accent-2); }
+.theme-pro #decoration-interieur .section__subtitle{ color: var(--accent-3); }
+
+.theme-pro .heading-ribbon{
+  position: relative; display: inline-block; padding: .15rem .35rem;
+}
+.theme-pro .heading-ribbon::before{
+  content:""; position:absolute; inset: 50% -6px -6px -6px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(176,124,198,.15), rgba(227,163,124,.15));
+  border-radius: 10px; z-index: -1;
 }

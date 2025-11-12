@@ -10,7 +10,7 @@ export default async function WeddingPlannerPage() {
 
   return (
     <section className="prestations section" id="wedding">
-      <h2 className="section__title">{sectionTitle}</h2>
+      <h2 className="section__title heading-ribbon">{sectionTitle}</h2>
       {sectionSubtitle && (
         <span className="section__subtitle">{sectionSubtitle}</span>
       )}
