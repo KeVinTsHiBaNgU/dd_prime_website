@@ -1,0 +1,157 @@
+/* ========= SECTION WHY (responsive + premium) ========= */
+
+.why {
+  padding: 4.5rem 0 4rem;
+  /* fond très léger, dans l'esprit de ta charte */
+  background: linear-gradient(
+    180deg,
+    rgba(249, 237, 234, 0.9),
+    rgba(246, 239, 232, 0.95)
+  );
+}
+
+/* on recentre le titre et on donne un peu d'air */
+.why .section__title {
+  margin-bottom: 0.4rem;
+}
+
+.why .section__subtitle {
+  max-width: 540px;
+  margin-inline: auto;
+  display: block;
+  line-height: 1.4;
+}
+
+/* GRID responsive */
+.why__container {
+  margin-top: 3rem;
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* CARD */
+.why__card {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1.9rem 1.6rem;
+  text-align: left;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  position: relative;
+  overflow: hidden;
+
+  /* petite barre dorée en haut à gauche */
+  --accent: var(--gold, #d4af37);
+}
+
+.why__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0),
+    rgba(212, 175, 55, 0.07)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.why__card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  border-radius: 0 0 999px 0;
+  background: linear-gradient(90deg, var(--accent), #f1dd9f);
+}
+
+/* contenu au-dessus des pseudo-éléments */
+.why__card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ICON */
+.why__icon {
+  font-size: 2.1rem;
+  margin-bottom: 1rem;
+  color: var(--gold, #d4af37);
+}
+
+/* TITRE & PARAGRAPHE */
+.why__title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--title-color, #1e1e1e);
+  margin-bottom: 0.55rem;
+}
+
+.why__description {
+  font-size: 0.95rem;
+  color: var(--text-color, #5b5450);
+  line-height: 1.7;
+}
+
+/* HOVER + animation légère */
+.why__card {
+  transform: translateY(0);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.why__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.09);
+  border-color: rgba(212, 175, 55, 0.25);
+}
+
+.why__card:hover::before {
+  opacity: 1;
+}
+
+/* ======= RESPONSIVE BREAKPOINTS ======= */
+
+/* Tablette : un peu plus d'air */
+@media screen and (max-width: 992px) {
+  .why {
+    padding: 3.5rem 0 3rem;
+  }
+
+  .why__container {
+    gap: 1.5rem;
+  }
+
+  .why__card {
+    padding: 1.7rem 1.5rem;
+  }
+}
+
+/* Mobile : 1 colonne, centré, textes un peu plus grands */
+@media screen and (max-width: 600px) {
+  .why {
+    border-radius: 0; /* la section peut toucher les bords sur mobile */
+  }
+
+  .why__container {
+    grid-template-columns: 1fr;
+  }
+
+  .why__card {
+    text-align: left;
+    padding: 1.6rem 1.4rem;
+  }
+
+  .why__title {
+    font-size: 1.1rem;
+  }
+
+  .why__description {
+    font-size: 0.97rem;
+  }
+}

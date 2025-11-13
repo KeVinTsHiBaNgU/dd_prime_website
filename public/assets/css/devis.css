@@ -179,44 +179,6 @@
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
 }
 
-/* Réseaux sociaux */
-
-/* .devis__socials {
-  margin-top: 2rem;
-}
-
-.devis__socials-title {
-  font-weight: var(--font-semi-bold);
-  margin-bottom: 0.75rem;
-  color: var(--title-color);
-}
-
-.devis__socials-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.devis__social-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.95rem;
-  color: var(--text-color);
-  padding: 0.45rem 0;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.devis__social-link i {
-  font-size: 1.2rem;
-  color: var(--first-color);
-}
-
-.devis__social-link:hover {
-  color: var(--first-color-alt);
-  transform: translateX(2px);
-} */
-
 /* ===== Bouton "Appeler maintenant" ===== */
 
 .devis__call {
@@ -286,5 +248,17 @@
 
   .devis {
     text-align: left;
+  }
+}
+
+.devis-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .devis-layout {
+    flex-direction: column;
   }
 }

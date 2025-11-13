@@ -1,8 +1,9 @@
 // app/page.js
 import Link from "next/link";
-import { getHomePage } from "@/lib/cms";
+import { getWhySection, getHomePage } from "@/lib/cms";
 
 export default async function HomePage() {
+  const why = await getWhySection();
   const {
     title,
     subtitle,
@@ -84,6 +85,42 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION POURQUOI NOUS CHOISIR - version dynamique */}
+      <section className="why section" id="why-us">
+        <div className="container">
+          <h2 className="section__title">{why.sectionTitle}</h2>
+          {why.sectionSubtitle && (
+            <span className="section__subtitle">
+              {why.sectionSubtitle}
+            </span>
+          )}
+
+          <div className="why__container">
+            {why.items.length === 0 && (
+              <p style={{ textAlign: "center", width: "100%" }}>
+                (Aucun argument configuré pour l’instant dans Strapi.)
+              </p>
+            )}
+
+            {why.items.map((item) => (
+              <article className="why__card" key={item.id}>
+                {/* Icône : soit emoji, soit classe d’icône Unicons */}
+                {item.icon && item.icon.startsWith("uil ") ? (
+                  <i className={`why__icon ${item.icon}`}></i>
+                ) : item.icon ? (
+                  <span className="why__icon">{item.icon}</span>
+                ) : null}
+
+                <h3 className="why__title">{item.title}</h3>
+                {item.description && (
+                  <p className="why__description">{item.description}</p>
+                )}
+              </article>
+            ))}
           </div>
         </div>
       </section>

@@ -17,7 +17,6 @@ export default function DevisForm({ content }) {
   const [prestation, setPrestation] = useState("");
   const [openSelect, setOpenSelect] = useState(false);
 
-  const email = content.email || "contact@ddprime.fr";
   const emailExemple = content.emailExemple || "exemple@adresse.com";
   const phone = content.phone || "+33 6 12 34 56 78";
 

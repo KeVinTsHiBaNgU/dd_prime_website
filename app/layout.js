@@ -6,6 +6,8 @@ import "../public/assets/css/galerie.css";
 import "../public/assets/css/realisations.css";
 import "../public/assets/css/contact.css";
 import "../public/assets/css/devis.css";
+import "../public/assets/css/why.css";
+import "../public/assets/css/calendar.css";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
