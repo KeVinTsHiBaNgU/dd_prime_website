@@ -1,14 +1,31 @@
-:root {
-  --first-color: #d9a441;
-  --first-color-alt: #bf8a2d;
-  --body-color: #ffffff;
-  --title-color: #1e1e1e;
-  --text-color: #555;
-  --container-color: #f9f9f9;
+:root{
+  /* Base */
+  --bg-cream: #F6EFE8;        /* crème clair */
+  --bg-blush: #F9EDEA;         /* rosé très léger */
+  --bg-warm:  #F4E7D6;         /* ivoire chaud */
+  --title-color: #1F1D1B;
+  --text-color:  #5B5450;
+  --container-color:#FFFFFF;
 
-  --h2-font-size: 2rem;
-  --normal-font-size: 1rem;
+  /* Marque */
+  --gold: #D4AF37;
+  --gold-dark:#BA972E;
+
+  /* Accents pastels */
+  --lavender:#BFA4C7;
+  --peach:#E9B4B4;
+  --honey:#EFCB7A;
+  --sage:#C8B16E;
+
+  /* Alias compat */
+  --first-color: var(--gold);
+  --first-color-alt: var(--gold-dark);
+
+  --h1-font-size:2.6rem;
+  --h2-font-size:2rem;
+  --normal-font-size:1rem;
 }
+
 
 /* ===================== ABOUT SECTION ===================== */
 

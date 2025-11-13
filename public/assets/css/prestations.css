@@ -1,24 +1,40 @@
 /* ===== PRESTATIONS STYLES ===== */
-:root {
-  --first-color: #d9a441;
-  --first-color-alt: #bf8a2d;
-  --body-color: #ffffff;
-  --title-color: #1e1e1e;
-  --text-color: #555;
-  --container-color: #f9f9f9;
+:root{
+  /* Base */
+  --bg-cream: #F6EFE8;        /* crème clair */
+  --bg-blush: #F9EDEA;         /* rosé très léger */
+  --bg-warm:  #F4E7D6;         /* ivoire chaud */
+  --title-color: #1F1D1B;
+  --text-color:  #5B5450;
+  --container-color:#FFFFFF;
 
-  --h2-font-size: 2rem;
-  --normal-font-size: 1rem;
+  /* Marque */
+  --gold: #D4AF37;
+  --gold-dark:#BA972E;
+
+  /* Accents pastels */
+  --lavender:#BFA4C7;
+  --peach:#E9B4B4;
+  --honey:#EFCB7A;
+  --sage:#C8B16E;
+
+  /* Alias compat */
+  --first-color: var(--gold);
+  --first-color-alt: var(--gold-dark);
+
+  --h1-font-size:2.6rem;
+  --h2-font-size:2rem;
+  --normal-font-size:1rem;
 }
 
+
 .prestations {
-  padding: 4rem 1rem;
-  background-color: #fff;
+  padding: 2rem 1rem;
   text-align: center;
 }
 
 .prestations .section__title {
-  font-size: 2.5rem;
+  font-size: var(--h2-font-size);
   color: var(--title-color);
   margin-bottom: 0.5rem;
 }
@@ -33,6 +49,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 3rem;
   gap: 2rem;
 }
 
@@ -106,22 +123,13 @@
 
 /* Prix sur la carte */
 /* --- Prix stylisé --- */
-.prestation__price {
-  margin-top: 1rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: linear-gradient(135deg, #d4af37, #f5d76e);
-  color: #2b2b2b;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  letter-spacing: 0.3px;
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  text-transform: capitalize;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.prestation__price{
+  margin-top: .9rem; display:inline-flex; align-items:center; gap:.45rem;
+  background: linear-gradient(135deg, #E9D7A1, var(--gold));
+  color:#1f1d1b; font-weight:700;
+  padding:.5rem 1rem; border-radius:14px;
+  box-shadow:0 8px 18px rgba(212,175,55,.25);
+  border:1px solid rgba(255,255,255,.6);
 }
 
 .prestation__price::before {
