@@ -3,6 +3,10 @@
 import { useState } from "react";
 import Swal from "sweetalert2"; // ✅ import du pop-up stylé
 import DOMPurify from "dompurify";
+import FadeIn from "@/components/motion/FadeIn";
+import ZoomIn from "@/components/motion/ZoomIn";
+import FadeRight from "@/components/motion/FadeRight";
+import Reveal from "@/components/Reveal";
 
 const prestationsOptions = [
   { value: "", label: "Sélectionnez une prestation" },
@@ -101,23 +105,33 @@ export default function DevisForm({ content }) {
     <section className="devis section" id="devis">
       <div className="container devis__container">
         <div className="devis__intro">
-          <h2 className="section__title">{content.sectionTitle}</h2>
+          <FadeIn>
+            <h2 className="section__title">{content.sectionTitle}</h2>
+          </FadeIn>
 
-          {content.sectionSubtitle && (
-            <span className="section__subtitle">{content.sectionSubtitle}</span>
-          )}
+          <Reveal>
+            {content.sectionSubtitle && (
+              <span className="section__subtitle">
+                {content.sectionSubtitle}
+              </span>
+            )}
+          </Reveal>
 
-          {content.introText && (
-            <p className="devis__text">{content.introText}</p>
-          )}
+          <ZoomIn>
+            {content.introText && (
+              <p className="devis__text">{content.introText}</p>
+            )}
+          </ZoomIn>
 
-          {content.bullets?.length > 0 && (
-            <ul className="devis__highlights">
-              {content.bullets.map((b, i) => (
-                <li key={i}>{b}</li>
-              ))}
-            </ul>
-          )}
+          <FadeRight>
+            {content.bullets?.length > 0 && (
+              <ul className="devis__highlights">
+                {content.bullets.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
+              </ul>
+            )}
+          </FadeRight>
         </div>
 
         <div className="devis__form-wrapper">

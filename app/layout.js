@@ -9,6 +9,7 @@ import "../public/assets/css/devis.css";
 import "../public/assets/css/why.css";
 import "../public/assets/css/calendar.css";
 
+import PageTransition from "@/components/motion/PageTransition";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -18,14 +19,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const isHomePage = typeof window !== "undefined" && window.location.pathname === "/";
+  const isHomePage =
+    typeof window !== "undefined" && window.location.pathname === "/";
   return (
     <html lang="fr">
       <head>
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
@@ -41,9 +40,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={isHomePage ? "home-page" : ""}>
-      {/* <body> */}
+        {/* <body> */}
         <Header />
-        <main className="page-background">{children}</main>
+        <main className="page-background">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
       </body>
     </html>

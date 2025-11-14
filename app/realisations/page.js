@@ -3,6 +3,8 @@
 
 import { useEffect, useState } from "react";
 import { getRealisationsPage } from "@/lib/cms";
+import FadeIn from "@/components/motion/FadeIn";
+import Reveal from "@/components/Reveal";
 
 export default function RealisationsPage() {
   const [data, setData] = useState({
@@ -29,7 +31,6 @@ export default function RealisationsPage() {
   const { title, subtitle, projects, sliderImages } = data;
 
   console.log(projects);
-  
 
   const openLightbox = (src) => setLightboxImage(src);
   const closeLightbox = () => setLightboxImage(null);
@@ -40,8 +41,14 @@ export default function RealisationsPage() {
   return (
     <>
       <section className="realisations section" id="realisations">
-        <h2 className="section__title">{title}</h2>
-        <span className="section__subtitle">{subtitle}</span>
+        <FadeIn>
+          <h2 className="section__title">{title}</h2>
+        </FadeIn>
+        <Reveal delay={0.2}>
+          {subtitle && (
+            <span className="section__subtitle">{subtitle}</span>
+          )}
+        </Reveal>
 
         <div className="realisations__container container">
           {projects.map((p) => (
@@ -57,9 +64,7 @@ export default function RealisationsPage() {
               <div className="project-content">
                 <h3 className="project-title">{p.title}</h3>
                 <p className="project-description">{p.description}</p>
-                {p.details && (
-                  <p className="project-details">{p.details}</p>
-                )}
+                {p.details && <p className="project-details">{p.details}</p>}
                 {p.quote && (
                   <blockquote className="project-quote">
                     &quot;{p.quote}&quot;

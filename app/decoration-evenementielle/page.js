@@ -1,6 +1,8 @@
 // app/decoration-evenementielle/page.js
 import { getEventConfig, getEventPrestations } from "@/lib/cms";
 import SliderWithLightbox from "@/components/SliderWithLightbox";
+import FadeIn from "@/components/motion/FadeIn";
+import Reveal from "@/components/Reveal";
 
 export const dynamic = "force-dynamic"; // pour voir tout de suite les changements du CMS
 
@@ -10,10 +12,14 @@ export default async function DecorationEvenementiellePage() {
 
   return (
     <section className="prestations section" id="evenementiel">
-      <h2 className="section__title">{sectionTitle}</h2>
-      {sectionSubtitle && (
-        <span className="section__subtitle">{sectionSubtitle}</span>
-      )}
+      <FadeIn>
+        <h2 className="section__title">{sectionTitle}</h2>
+      </FadeIn>
+      <Reveal delay={0.2}>
+        {sectionSubtitle && (
+          <span className="section__subtitle">{sectionSubtitle}</span>
+        )}
+      </Reveal>
 
       <div className="prestations__container container">
         {prestations.length === 0 && (

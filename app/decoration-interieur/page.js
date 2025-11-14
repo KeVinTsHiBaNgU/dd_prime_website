@@ -1,6 +1,9 @@
 // app/decoration-interieur/page.js
 import { getInteriorConfig, getInteriorPrestations } from "@/lib/cms";
 import SliderWithLightbox from "@/components/SliderWithLightbox";
+import FadeIn from "@/components/motion/FadeIn";
+import Reveal from "@/components/Reveal";
+
 
 export const dynamic = "force-dynamic";
 
@@ -10,8 +13,14 @@ export default async function DecorationInterieurPage() {
 
   return (
     <section className="prestations section" id="prestations">
-      <h2 className="section__title">{sectionTitle}</h2>
-      <span className="section__subtitle">{sectionSubtitle}</span>
+      <FadeIn>
+              <h2 className="section__title">{sectionTitle}</h2>
+            </FadeIn>
+            <Reveal delay={0.2}>
+              {sectionSubtitle && (
+                <span className="section__subtitle">{sectionSubtitle}</span>
+              )}
+            </Reveal>
 
       <div className="prestations__container container">
         {prestations.length === 0 && (

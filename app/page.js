@@ -1,6 +1,7 @@
 // app/page.js
 import Link from "next/link";
 import { getWhySection, getHomePage } from "@/lib/cms";
+import Reveal from "@/components/Reveal";
 
 export default async function HomePage() {
   const why = await getWhySection();
@@ -92,12 +93,14 @@ export default async function HomePage() {
       {/* SECTION POURQUOI NOUS CHOISIR - version dynamique */}
       <section className="why section" id="why-us">
         <div className="container">
-          <h2 className="section__title">{why.sectionTitle}</h2>
-          {why.sectionSubtitle && (
-            <span className="section__subtitle">
-              {why.sectionSubtitle}
-            </span>
-          )}
+          <Reveal>
+            <h2 className="section__title">{why.sectionTitle}</h2>
+          </Reveal>
+          <Reveal delay={0.2}>
+            {why.sectionSubtitle && (
+              <span className="section__subtitle">{why.sectionSubtitle}</span>
+            )}
+          </Reveal>
 
           <div className="why__container">
             {why.items.length === 0 && (

@@ -2,6 +2,8 @@
 import { getDevisPage, getDevisCalendar } from "@/lib/cms";
 import DevisForm from "@/components/DevisForm";
 import CalendarAvailability from "@/components/CalendarAvailability";
+import FadeLeft from "@/components/motion/FadeLeft";
+import FadeRight from "@/components/motion/FadeRight";
 
 export const dynamic = "force-dynamic";
 
@@ -21,16 +23,20 @@ export default async function DevisPage() {
         <div className="devis__calendar-wrapper">
           <div className="devis__calendar-row">
             <div className="devis__calendar-box">
-              <CalendarAvailability settings={calendarSettings} />
+              <FadeRight>
+                <CalendarAvailability settings={calendarSettings} />
+              </FadeRight>
             </div>
 
-            <div className="devis__calendar-box devis__calendar-photo">
-              <img
-                src={content.teamImage || "/placeholder.jpg"}
-                alt="Notre équipe événementielle"
-                className="devis__calendar-photo-img"
-              />
-            </div>
+            <FadeLeft>
+              <div className="devis__calendar-box devis__calendar-photo">
+                <img
+                  src={content.teamImage || "/placeholder.jpg"}
+                  alt="Notre équipe événementielle"
+                  className="devis__calendar-photo-img"
+                />
+              </div>
+            </FadeLeft>
           </div>
         </div>
       </div>
