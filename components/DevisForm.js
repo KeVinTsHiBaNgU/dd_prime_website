@@ -4,7 +4,6 @@ import { useState } from "react";
 import Swal from "sweetalert2"; // ✅ import du pop-up stylé
 import DOMPurify from "dompurify";
 
-
 const prestationsOptions = [
   { value: "", label: "Sélectionnez une prestation" },
   { value: "interieur", label: "Décoration d'intérieur" },
@@ -36,10 +35,15 @@ export default function DevisForm({ content }) {
     }
 
     const formData = new FormData(form);
+    const firstName = (formData.get("firstName") || "").toString().trim();
+    const lastName = (formData.get("lastName") || "").toString().trim();
     const emailValue = formData.get("email");
     const phone = formData.get("phone");
     const rawMessage = formData.get("message");
-    const messageValue = DOMPurify.sanitize(rawMessage, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
+    const messageValue = DOMPurify.sanitize(rawMessage, {
+      ALLOWED_TAGS: [],
+      ALLOWED_ATTR: [],
+    });
     const prestationValue = formData.get("prestation");
 
     try {
@@ -47,12 +51,17 @@ export default function DevisForm({ content }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
           email: emailValue,
           phone: phone,
           prestation: prestationValue,
           message: messageValue,
         }),
       });
+
+      const data = await res.json();
+      console.log("API response:", data);
 
       if (!res.ok) {
         throw new Error("Erreur lors de l’envoi du devis");
@@ -113,6 +122,34 @@ export default function DevisForm({ content }) {
 
         <div className="devis__form-wrapper">
           <form className="devis__form" onSubmit={handleSubmit}>
+            <div className="devis__field">
+              <label htmlFor="firstName" className="devis__label">
+                Votre prénom *
+              </label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                className="devis__input"
+                placeholder="Marie"
+                required
+              />
+            </div>
+
+            <div className="devis__field">
+              <label htmlFor="lastName" className="devis__label">
+                Votre nom *
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                className="devis__input"
+                placeholder="Dupont"
+                required
+              />
+            </div>
+
             {/* Email */}
             <div className="devis__field">
               <label htmlFor="email" className="devis__label">
