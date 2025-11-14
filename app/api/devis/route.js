@@ -279,7 +279,7 @@ function clientEmailHtml({ prestation, safeMessage, phone, firstName }) {
         margin-top:8px;
         background:linear-gradient(135deg, #d4b574, #b8944c);
         color:#fff;
-        padding:12px 26px;
+        padding:10px 18px;
         border-radius:999px;
         text-decoration:none;
         font-weight:600;
