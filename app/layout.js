@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
       <body className={isHomePage ? "home-page" : ""}>
       {/* <body> */}
         <Header />
-        <main>{children}</main>
+        <main className="page-background">{children}</main>
         <Footer />
       </body>
     </html>

@@ -2,12 +2,11 @@
 
 .why {
   padding: 4.5rem 0 4rem;
-  /* fond très léger, dans l'esprit de ta charte */
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(249, 237, 234, 0.9),
     rgba(246, 239, 232, 0.95)
-  );
+  ); */
 }
 
 /* on recentre le titre et on donne un peu d'air */
