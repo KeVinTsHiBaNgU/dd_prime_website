@@ -3,6 +3,7 @@ import { getWeddingConfig, getWeddingPrestations } from "@/lib/cms";
 import SliderWithLightbox from "@/components/SliderWithLightbox";
 import FadeIn from "@/components/motion/FadeIn";
 import Reveal from "@/components/Reveal";
+import SlideUp from "@/components/motion/SlideUp";
 
 export const dynamic = "force-dynamic"; // pour voir tout de suite les changements du CMS
 
@@ -29,7 +30,7 @@ export default async function WeddingPlannerPage() {
           </p>
         )}
 
-        {prestations.map((presta) => (
+        {/* {prestations.map((presta) => (
           <article className="prestation__card" key={presta.id}>
             {presta.icon && (
               <div className="prestation__icon">{presta.icon}</div>
@@ -53,13 +54,59 @@ export default async function WeddingPlannerPage() {
               </ul>
             )}
 
-            {/* 👇 Prix "à partir de ..." */}
+            
             {presta.priceFrom != null && (
               <div className="prestation__price">
                 à partir de {presta.priceFrom} €
               </div>
             )}
           </article>
+        ))} */}
+
+        {prestations.map((presta, index) => (
+          <SlideUp key={presta.id} delay={index * 0.12} y={25}>
+            <FadeIn delay={index * 0.12 + 0.1}>
+              <article className="prestation__card">
+                {/* Icône */}
+                {presta.icon && (
+                  <div className="prestation__icon">{presta.icon}</div>
+                )}
+
+                {/* Titre */}
+                <h3 className="prestation__title">{presta.title}</h3>
+
+                {/* Description */}
+                {presta.description && (
+                  <p className="prestation__description">
+                    {presta.description}
+                  </p>
+                )}
+
+                {/* Liste */}
+                {presta.bullets && (
+                  <ul className="prestation__list">
+                    {presta.bullets
+                      .split("\n")
+                      .map((line) => line.trim())
+                      .filter(Boolean)
+                      .map((line, idx) => (
+                        <li key={idx}>{line}</li>
+                      ))}
+                  </ul>
+                )}
+
+                {/* Prix stylé premium */}
+                {presta.priceFrom != null && (
+                  <div className="prestation__price premium-price">
+                    <span className="premium-price__label">À partir de</span>
+                    <span className="premium-price__value">
+                      {presta.priceFrom} €
+                    </span>
+                  </div>
+                )}
+              </article>
+            </FadeIn>
+          </SlideUp>
         ))}
       </div>
 
@@ -69,7 +116,6 @@ export default async function WeddingPlannerPage() {
           <SliderWithLightbox images={sliderImages} />
         </div>
       )}
-      
     </section>
   );
 }

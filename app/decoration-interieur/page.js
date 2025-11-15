@@ -3,7 +3,7 @@ import { getInteriorConfig, getInteriorPrestations } from "@/lib/cms";
 import SliderWithLightbox from "@/components/SliderWithLightbox";
 import FadeIn from "@/components/motion/FadeIn";
 import Reveal from "@/components/Reveal";
-
+import SlideUp from "@/components/motion/SlideUp";
 
 export const dynamic = "force-dynamic";
 
@@ -14,13 +14,13 @@ export default async function DecorationInterieurPage() {
   return (
     <section className="prestations section" id="prestations">
       <FadeIn>
-              <h2 className="section__title">{sectionTitle}</h2>
-            </FadeIn>
-            <Reveal delay={0.2}>
-              {sectionSubtitle && (
-                <span className="section__subtitle">{sectionSubtitle}</span>
-              )}
-            </Reveal>
+        <h2 className="section__title">{sectionTitle}</h2>
+      </FadeIn>
+      <Reveal delay={0.2}>
+        {sectionSubtitle && (
+          <span className="section__subtitle">{sectionSubtitle}</span>
+        )}
+      </Reveal>
 
       <div className="prestations__container container">
         {prestations.length === 0 && (
@@ -30,41 +30,54 @@ export default async function DecorationInterieurPage() {
           </p>
         )}
 
-        {prestations.map((presta) => (
-          <article className="prestation__card" key={presta.id}>
-            {presta.icon && (
-              <div className="prestation__icon">{presta.icon}</div>
-            )}
+        {prestations.map((presta, index) => (
+          <SlideUp key={presta.id} delay={index * 0.12} y={25}>
+            <FadeIn delay={index * 0.12 + 0.1}>
+              <article className="prestation__card">
+                {/* Icône */}
+                {presta.icon && (
+                  <div className="prestation__icon">{presta.icon}</div>
+                )}
 
-            <h3 className="prestation__title">{presta.title}</h3>
+                {/* Titre */}
+                <h3 className="prestation__title">{presta.title}</h3>
 
-            {presta.description && (
-              <p className="prestation__description">{presta.description}</p>
-            )}
+                {/* Description */}
+                {presta.description && (
+                  <p className="prestation__description">
+                    {presta.description}
+                  </p>
+                )}
 
-            {presta.bullets && (
-              <ul className="prestation__list">
-                {presta.bullets
-                  .split("\n")
-                  .map((line) => line.trim())
-                  .filter(Boolean)
-                  .map((line, idx) => (
-                    <li key={idx}>{line}</li>
-                  ))}
-              </ul>
-            )}
+                {/* Liste des points */}
+                {presta.bullets && (
+                  <ul className="prestation__list">
+                    {presta.bullets
+                      .split("\n")
+                      .map((line) => line.trim())
+                      .filter(Boolean)
+                      .map((line, idx) => (
+                        <li key={idx}>{line}</li>
+                      ))}
+                  </ul>
+                )}
 
-            {/* 👇 Prix "à partir de ..." */}
-            {presta.priceFrom != null && (
-              <div className="prestation__price">
-                à partir de {presta.priceFrom} €
-              </div>
-            )}
-          </article>
+                {/* Prix premium "à partir de" */}
+                {presta.priceFrom != null && (
+                  <div className="prestation__price premium-price">
+                    <span className="premium-price__label">À partir de</span>
+                    <span className="premium-price__value">
+                      {presta.priceFrom} €
+                    </span>
+                  </div>
+                )}
+              </article>
+            </FadeIn>
+          </SlideUp>
         ))}
       </div>
 
-      {/* 👇 Slider d’images en bas (défilement infini) */}
+      {/* Slider d’images en bas (défilement infini) */}
       {sliderImages.length > 0 && (
         <div className="wp__slider-wrapper">
           <SliderWithLightbox images={sliderImages} />

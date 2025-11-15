@@ -2,6 +2,9 @@
 import Link from "next/link";
 import { getWhySection, getHomePage } from "@/lib/cms";
 import Reveal from "@/components/Reveal";
+import HoverScale from "@/components/motion/HoverScale";
+import FadeIn from "@/components/motion/FadeIn";
+import SlideUp from "@/components/motion/SlideUp";
 
 export default async function HomePage() {
   const why = await getWhySection();
@@ -35,28 +38,41 @@ export default async function HomePage() {
         </div>
 
         <div className="container home__container">
-          <div className="home__content">
-            <h1>{title}</h1>
-            <p>{subtitle}</p>
-            <div className="home__buttons">
-              {buttons.map((btn) => (
-                <Link
-                  key={btn.id}
-                  href={btn.url}
-                  className="home__btn home__btn--outline"
-                >
-                  {btn.label}
-                </Link>
-              ))}
+          <SlideUp y={20} duration={0.6}>
+            <div className="home__content">
+              {/* Titre */}
+              <FadeIn delay={0.1}>
+                <h1>{title}</h1>
+              </FadeIn>
+
+              {/* Sous-titre */}
+              <FadeIn delay={0.25}>
+                <p>{subtitle}</p>
+              </FadeIn>
+
+              {/* Boutons */}
+              <div className="home__buttons">
+                {buttons.map((btn, index) => (
+                  <FadeIn delay={0.35 + index * 0.15} key={btn.id}>
+                    <Link
+                      href={btn.url}
+                      className="home__btn home__btn--outline"
+                    >
+                      {btn.label}
+                    </Link>
+                  </FadeIn>
+                ))}
+              </div>
             </div>
-          </div>
+          </SlideUp>
         </div>
       </section>
 
       {/* SECTION A PROPOS SUR LA MÊME PAGE */}
       <section className="about section" id="about">
         <div className="container about__container">
-          <div className="about__image-wrapper">
+          {/* Bloc image / slider */}
+          <SlideUp className="about__image-wrapper" y={30} duration={0.7}>
             <div className="about__slider">
               <div className="about__slide-track">
                 {aboutImages.map((src, i) => (
@@ -69,24 +85,49 @@ export default async function HomePage() {
                 ))}
               </div>
             </div>
-          </div>
+          </SlideUp>
 
-          <div className="about__content">
-            <h2 className="section__title about__title">{aboutTitle}</h2>
-            <span className="section__subtitle about__subtitle">
-              {aboutSubtitle}
-            </span>
+          {/* Bloc texte */}
+          <SlideUp
+            className="about__content"
+            y={30}
+            delay={0.15}
+            duration={0.7}
+          >
+            {/* Titre */}
+            <FadeIn delay={0.2}>
+              <h2 className="section__title about__title">{aboutTitle}</h2>
+            </FadeIn>
 
-            <p className="about__description">{aboutDescription}</p>
+            {/* Sous-titre */}
+            {aboutSubtitle && (
+              <FadeIn delay={0.3}>
+                <span className="section__subtitle about__subtitle">
+                  {aboutSubtitle}
+                </span>
+              </FadeIn>
+            )}
 
-            <div className="about__highlights">
-              {highlights.map((h) => (
-                <div key={h.id} className="about__highlight">
-                  {h.icon} {h.text}
-                </div>
-              ))}
-            </div>
-          </div>
+            {/* Description */}
+            {aboutDescription && (
+              <FadeIn delay={0.4}>
+                <p className="about__description">{aboutDescription}</p>
+              </FadeIn>
+            )}
+
+            {/* Highlights en légère cascade */}
+            {highlights?.length > 0 && (
+              <div className="about__highlights">
+                {highlights.map((h, index) => (
+                  <FadeIn key={h.id} delay={0.5 + index * 0.1}>
+                    <div className="about__highlight">
+                      {h.icon} {h.text}
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
+            )}
+          </SlideUp>
         </div>
       </section>
 
@@ -109,20 +150,23 @@ export default async function HomePage() {
               </p>
             )}
 
-            {why.items.map((item) => (
-              <article className="why__card" key={item.id}>
-                {/* Icône : soit emoji, soit classe d’icône Unicons */}
-                {item.icon && item.icon.startsWith("uil ") ? (
-                  <i className={`why__icon ${item.icon}`}></i>
-                ) : item.icon ? (
-                  <span className="why__icon">{item.icon}</span>
-                ) : null}
+            {why.items.map((item, index) => (
+              <HoverScale key={item.id}>
+                <FadeIn delay={index * 0.15}>
+                  <article className="why__card">
+                    {item.icon && item.icon.startsWith("uil ") ? (
+                      <i className={`why__icon ${item.icon}`}></i>
+                    ) : item.icon ? (
+                      <span className="why__icon">{item.icon}</span>
+                    ) : null}
 
-                <h3 className="why__title">{item.title}</h3>
-                {item.description && (
-                  <p className="why__description">{item.description}</p>
-                )}
-              </article>
+                    <h3 className="why__title">{item.title}</h3>
+                    {item.description && (
+                      <p className="why__description">{item.description}</p>
+                    )}
+                  </article>
+                </FadeIn>
+              </HoverScale>
             ))}
           </div>
         </div>

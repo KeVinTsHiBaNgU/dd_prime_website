@@ -87,7 +87,7 @@
 }
 
 .availability-card__cell {
-  height: 24px; /* réduit la hauteur */
+  height: 20px; /* réduit la hauteur */
   border-radius: 1.1rem;
   border: 1px solid transparent;
   background-color: #f5eee7;

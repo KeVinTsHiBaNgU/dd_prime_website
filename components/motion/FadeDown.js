@@ -1,3 +1,7 @@
+"use client";
+import { motion } from "framer-motion";
+import { motionConfig } from "./config";
+
 export default function FadeDown({ children, delay = 0 }) {
   return (
     <motion.div

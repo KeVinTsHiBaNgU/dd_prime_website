@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { getRealisationsPage } from "@/lib/cms";
 import FadeIn from "@/components/motion/FadeIn";
 import Reveal from "@/components/Reveal";
+import HoverScale from "@/components/motion/HoverScale";
+import SlideUp from "@/components/motion/SlideUp";
 
 export default function RealisationsPage() {
   const [data, setData] = useState({
@@ -45,33 +47,48 @@ export default function RealisationsPage() {
           <h2 className="section__title">{title}</h2>
         </FadeIn>
         <Reveal delay={0.2}>
-          {subtitle && (
-            <span className="section__subtitle">{subtitle}</span>
-          )}
+          {subtitle && <span className="section__subtitle">{subtitle}</span>}
         </Reveal>
 
         <div className="realisations__container container">
-          {projects.map((p) => (
-            <div key={p.id} className="project-card">
-              {p.image && (
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  className="project-img"
-                  onClick={() => openLightbox(p.image)}
-                />
-              )}
-              <div className="project-content">
-                <h3 className="project-title">{p.title}</h3>
-                <p className="project-description">{p.description}</p>
-                {p.details && <p className="project-details">{p.details}</p>}
-                {p.quote && (
-                  <blockquote className="project-quote">
-                    &quot;{p.quote}&quot;
-                  </blockquote>
-                )}
-              </div>
-            </div>
+          {projects.map((p, index) => (
+            <SlideUp key={p.id} delay={index * 0.12} y={30}>
+              <FadeIn delay={index * 0.12 + 0.1}>
+                <HoverScale scale={1.03}>
+                  <div className="project-card">
+                    {/* Image cliquable (lightbox) */}
+                    {p.image && (
+                      <div className="project-img-wrapper">
+                        <img
+                          src={p.image}
+                          alt={p.title}
+                          className="project-img"
+                          onClick={() => openLightbox(p.image)}
+                        />
+                      </div>
+                    )}
+
+                    <div className="project-content">
+                      <h3 className="project-title">{p.title}</h3>
+
+                      {p.description && (
+                        <p className="project-description">{p.description}</p>
+                      )}
+
+                      {p.details && (
+                        <p className="project-details">{p.details}</p>
+                      )}
+
+                      {p.quote && (
+                        <blockquote className="project-quote">
+                          &quot;{p.quote}&quot;
+                        </blockquote>
+                      )}
+                    </div>
+                  </div>
+                </HoverScale>
+              </FadeIn>
+            </SlideUp>
           ))}
         </div>
 
